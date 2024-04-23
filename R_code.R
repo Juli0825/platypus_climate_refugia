@@ -19,14 +19,19 @@ bio12 = raster("variables/bio_12.asc")
 bio15 = raster("variables/bio_15.asc")
 bio16 = raster("variables/bio_16.asc")
 bio17 = raster("variables/bio_17.asc")
+elevation = raster("variables/elevation.asc")
 
-#testing if these variables looks 
+#testing if these variables looks alright
 plot(bio1, main="Annual mean temperature")
 plot(bio5, main="Max temperature of warmest month")
-plot(bio1, main="Annual mean temperature")
-plot(bio1, main="Annual mean temperature")
-plot(bio1, main="Annual mean temperature")
-plot(bio1, main="Annual mean temperature")
-plot(bio1, main="Annual mean temperature")
-plot(bio1, main="Annual mean temperature")
+plot(bio6, main="Min temperature of coldest month")
+plot(bio12, main="Annual precipitation")
+plot(bio15, main="Precipitation seasonality")
+plot(bio16, main="Precipitation of wettest quarter")
+plot(bio17, main="Precipitation of the driest quarter")
+plot(elevation, main="Elevation")
 
+#MaxEnt modelling
+install.packages("installr")
+library(installr)
+install.Rtools() #this code doesn't work, I download RTools 4.3 from the website https://cran.r-project.org/bin/windows/Rtools/
