@@ -4,6 +4,8 @@ library(maps)
 
 library(raster)
 
+library(rJava)
+
 #platypus observation records downloaded from ATLA,2014-2024
 orecord <- read.csv("variables/observation_records.csv") 
 
@@ -11,7 +13,8 @@ orecord <- read.csv("variables/observation_records.csv")
 plot(orecord$Longitude, orecord$Latitude, col="red", xlim=c(113, 154), ylim=c(-44, -10), pch=19, xlab="Longitude", ylab="Latitude")
 map(add=T)
 
-#load climate variables already downloaded from worldclim, and cropped with AU mask(I did this last year in Arcmap) 
+#load climate variables that has been already downloaded from worldclim, 
+# and cropped with AU mask(I did this last year in Arcmap) 
 bio1 = raster("variables/bio_1.asc")
 bio5 = raster("variables/bio_5.asc")
 bio6 = raster("variables/bio_6.asc")
@@ -35,3 +38,18 @@ plot(elevation, main="Elevation")
 install.packages("installr")
 library(installr)
 install.Rtools() #this code doesn't work, I download RTools 4.3 from the website https://cran.r-project.org/bin/windows/Rtools/
+install.packages("rJava")
+library(rJava)
+
+#Organise longitude and latitude in a new file
+orecordpoints = orecord[ , c('Longitude', 'Latitude')]
+
+#divide the file into 5 parts, 75% used to train the model, while 25% used to test if the model is good
+group <- kfold(orecordpints, 5)
+pres_train <- orecordpoints[group!=1, ]
+pres_test <- orecordpoints[group == 1, ]
+
+#put all the environmental variables into one folder
+envariables <- list(bio1,)
+
+
